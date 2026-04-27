@@ -25,42 +25,6 @@ def generate_user_data():
     }
 
 
-#Функция генерирует данные пользователя без email
-def generate_user_data_without_email():
-    email = ""
-    password = generate_random_string(10)
-    name = generate_random_string(10)
-    return {
-        "email": email,
-        "password": password,
-        "name": name
-    }
-
-
-#Функция генерирует данные пользователя без пароля
-def generate_user_data_without_password():
-    email = generate_random_string(10)
-    password = ""
-    name = generate_random_string(10)
-    return {
-        "email": email,
-        "password": password,
-        "name": name
-    }
-
-
-#Функция генерирует данные пользователя без имени
-def generate_user_data_without_name():
-    email = generate_random_string(10)
-    password = generate_random_string(10)
-    name = ""
-    return {
-        "email": email,
-        "password": password,
-        "name": name
-    }
-
-
 #Функция регистрирует нового пользователя и возвращает его данные
 def register_new_user_and_return_email_password():
     email = generate_random_string(10) + "@yandex.ru"

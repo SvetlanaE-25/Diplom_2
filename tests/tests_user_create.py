@@ -4,9 +4,6 @@ from api_methods.user_methods import UserMethods
 from data import ERROR_MESSAGES
 from helpers import (
     generate_user_data,
-    generate_user_data_without_email,
-    generate_user_data_without_password,
-    generate_user_data_without_name,
     register_new_user_and_return_email_password
     )
 
@@ -40,15 +37,13 @@ class TestUserCreate:
 
     @allure.title("Создание пользователя без email возвращает ошибку")
     @allure.description("Проверка создания пользователя без email")
-    def test_user_create_whithout_email_error(self):
+    def test_user_create_without_email_error(self):
         with allure.step("Генерируем данные пользователя без email"):
-            user_data = generate_user_data_without_email()
-            email = user_data["email"]
-            password = user_data["password"]
-            name = user_data["name"]
-        
+            user_data = generate_user_data()
+            user_data["email"] = ""
+                    
         with allure.step("Отправляем запрос на создание пользователя с пустым полем email"):
-            response = UserMethods.user_create(email, password, name)
+            response = UserMethods.user_create(**user_data)
             
         with allure.step("Проверяем ответ сервера"):
             assert response.status_code == 403, f"Expected status code 403, but got {response.status_code}"
@@ -59,15 +54,13 @@ class TestUserCreate:
 
     @allure.title("Создание пользователя без пароля возвращает ошибку")
     @allure.description("Проверка создания пользователя без пароля")
-    def test_user_create_whithout_password_error(self):
+    def test_user_create_without_password_error(self):
         with allure.step("Генерируем данные пользователя без пароля"):
-            user_data = generate_user_data_without_password()
-            email = user_data["email"]
-            password = user_data["password"]
-            name = user_data["name"]
+            user_data = generate_user_data()
+            user_data["password"] = ""
         
         with allure.step("Отправляем запрос на создание пользователя с пустым полем Пароль"):
-            response = UserMethods.user_create(email, password, name)
+            response = UserMethods.user_create(**user_data)
             
         with allure.step("Проверяем ответ сервера"):
             assert response.status_code == 403, f"Expected status code 403, but got {response.status_code}"
@@ -77,15 +70,13 @@ class TestUserCreate:
 
     @allure.title("Создание пользователя без имени возвращает ошибку")
     @allure.description("Проверка создания пользователя без имени")
-    def test_user_create_whithout_name_error(self):
+    def test_user_create_without_name_error(self):
         with allure.step("Генерируем данные пользователя без имени"):
-            user_data = generate_user_data_without_name()
-            email = user_data["email"]
-            password = user_data["password"]
-            name = user_data["name"]
+            user_data = generate_user_data()
+            user_data["name"] = ""
         
         with allure.step("Отправляем запрос на создание пользователя с пустым полем Имя"):
-            response = UserMethods.user_create(email, password, name)
+            response = UserMethods.user_create(**user_data)
             
         with allure.step("Проверяем ответ сервера"):
             assert response.status_code == 403, f"Expected status code 403, but got {response.status_code}"

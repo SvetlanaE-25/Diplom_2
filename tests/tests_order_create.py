@@ -48,6 +48,7 @@ class TestOrderCreate:
         with allure.step("Проверяем ответ сервера"):
             assert response.status_code == 400
             assert response.json()["success"] == False
+            assert response.json()["message"] == ERROR_MESSAGES["none_ingredients"]
 
     
     @allure.title("Создание заказа без авторизации с ингредиентами возвращает ошибку")
@@ -58,7 +59,8 @@ class TestOrderCreate:
             response = OrderMethods.create_order(ingredients, token=None)
 
         with allure.step("Проверяем ответ сервера"):
-            assert response.status_code == 500
+            assert response.status_code == 500, f"Expected 500 Internal Server Error, got {response.status_code}"
+            
 
     
     
@@ -77,7 +79,7 @@ class TestOrderCreate:
             response = OrderMethods.create_order(invalid_ingredients, access_token)
 
         with allure.step("Проверяем ответ сервера"):
-            assert response.status_code == 500
+            assert response.status_code == 500, f"Expected 500 Internal Server Error, got {response.status_code}"
 
 
 
@@ -89,5 +91,5 @@ class TestOrderCreate:
             response = OrderMethods.create_order(invalid_ingredients, token=None)
 
         with allure.step("Проверяем ответ сервера"):
-            assert response.status_code == 500
+            assert response.status_code == 500, f"Expected 500 Internal Server Error, got {response.status_code}"
         

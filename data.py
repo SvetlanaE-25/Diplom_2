@@ -5,7 +5,7 @@ ERROR_MESSAGES = {
     "user_already_exists": "User already exists",
     "email_incorrect": "email or password are incorrect",
     "password_incorrect": "email or password are incorrect",
-    "none_ingredients": "Ingredients ids must be provided",
+    "none_ingredients": "Ingredient ids must be provided",
     "unauthorized_user_order": "You should be authorised"
 }
 
